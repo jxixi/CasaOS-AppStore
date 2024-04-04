@@ -31,7 +31,8 @@ jobs:
           cp -v README.md /tmp/build/sysroot/var/lib/casaos/appstore/default.new/
           pushd /tmp
           zip -r main.zip build
-            
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}            
   
       - name: Upload New Release
         uses: softprops/action-gh-release@v1
