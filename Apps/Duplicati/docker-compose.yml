@@ -1,63 +1,62 @@
-name: duplicati
+name: duplicati-arm
 services:
-  duplicati:
+  duplicati-arm:
     environment:
       PGID: "1000"
       PUID: "1000"
       TZ: Europe/London
-    image: linuxserver/duplicati:2.0.7
+    image: linuxserver/duplicati:arm32v7-2.0.6
     deploy:
       resources:
         reservations:
           memory: 64M
     network_mode: bridge
     ports:
-      - target: 8200
-        published: "8200"
-        protocol: tcp
+    - target: 8200
+      published: "8200"
+      protocol: tcp
     restart: unless-stopped
     volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/config
-        target: /config
-      - type: bind
-        source: /DATA/Duplicati/backups
-        target: /backups
-      - type: bind
-        source: /DATA/Duplicati/source
-        target: /source
+    - type: bind
+      source: /DATA/AppData/$AppID/config
+      target: /config
+    - type: bind
+      source: /DATA/Duplicati/backups
+      target: /backups
+    - type: bind
+      source: /DATA/Duplicati/source
+      target: /source
     x-casaos:
       envs:
-        - container: PUID
-          description:
-            en_us: ""
-        - container: PGID
-          description:
-            en_us: ""
-        - container: TZ
-          description:
-            en_us: ""
+      - container: PUID
+        description:
+          en_us: ""
+      - container: PGID
+        description:
+          en_us: ""
+      - container: TZ
+        description:
+          en_us: ""
       ports:
-        - container: "8200"
-          description:
-            en_us: ""
+      - container: "8200"
+        description:
+          en_us: ""
 
       volumes:
-        - container: /config
-          description:
-            en_us: ""
-        - container: /backups
-          description:
-            en_us: ""
-        - container: /source
-          description:
-            en_us: ""
-    container_name: duplicati
+      - container: /config
+        description:
+          en_us: ""
+      - container: /backups
+        description:
+          en_us: ""
+      - container: /source
+        description:
+          en_us: ""
+    container_name: duplicati-arm
 x-casaos:
   architectures:
-    - amd64
-    - arm64
-  main: duplicati
+  - arm
+  main: duplicati-arm
   author: CasaOS Team
   category: Cloud
   description:
@@ -77,9 +76,9 @@ x-casaos:
   developer: duplicati
   icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Duplicati/icon.png
   screenshot_link:
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Duplicati/screenshot-1.png
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Duplicati/screenshot-2.png
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Duplicati/screenshot-3.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Duplicati/screenshot-1.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Duplicati/screenshot-2.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Duplicati/screenshot-3.png
   tagline:
     en_us: Store securely encrypted backups in the cloud!
     zh_cn: 在云端存储安全加密的备份文件！

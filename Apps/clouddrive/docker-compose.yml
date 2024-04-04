@@ -1,0 +1,91 @@
+name: clouddrive
+services:
+  clouddrive:
+    image: cloudnas/clouddrive2
+    container_name: clouddrive
+    deploy:
+      resources:
+        reservations:
+          memory: 64M
+    network_mode: host
+    pid: "host"
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - /DATA/AppData/clouddrive/Config:/Config
+      - /mnt:/mnt:shared
+      - /media:/media:shared
+    devices:
+      - /dev/fuse:/dev/fuse
+    environment:
+      CLOUDDRIVE_HOME: /Config
+      TZ: Asia/Shanghai
+    x-casaos:
+      volumes:
+        - container: /Config
+          description:
+            en_us: Config directory.
+            zh_cn: 配置目录
+        - container: /mnt
+          description:
+            en_us: Mount directory.
+            zh_cn: 挂载目录
+        - container: /media
+          description:
+            en_us: Mount directory.
+            zh_cn: 挂载目录
+x-casaos:
+  architectures:
+    - amd64
+    - arm
+    - arm64
+  main: clouddrive
+  store_app_id: clouddrive
+  category: Cloud
+  author: Cp0204
+  developer: waytechcloudfs
+  icon: https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/clouddrive/icon.png
+  # screenshot_link:
+  #   - https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/clouddrive/screenshot-1.png
+  # thumbnail: https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/clouddrive/thumbnail.png
+  description:
+    en_us: A powerful multi -cloud disk management tool provides users with a one -stop multi -cloud disk solution containing a cloud -mounted local mount.
+    zh_cn: 一个强大的多云盘管理工具，为用户提供包含云盘本地挂载的一站式的多云盘解决方案。
+  tagline:
+    en_us: The infinite possibility of unlocking cloud storage
+    zh_cn: 解锁云存储的无限可能
+  title:
+    en_us: CloudDrive2
+  tips:
+    before_install:
+      en_us: |
+        **Must step before installing** Execute the following command on the host machine before proceeding to the next step:
+        ```
+        sudo mkdir -p /etc/systemd/system/docker.service.d/
+        sudo cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.conf
+        [Service]
+        MountFlags=shared
+        EOF
+        sudo systemctl restart docker.service
+        ```
+        ---
+        ⚠️⚠️⚠️ **IMPORTANT**: Do not edit the application settings in CasaOS UI after installation! Otherwise it will result in unsuccessful mounting!
+
+        📁 Mount to the host using the `/mnt` or `/media` directory.
+      zh_cn: |
+        **安装前必须步骤**，先在宿主机执行以下命令，再进行下一步：
+        ```
+        sudo mkdir -p /etc/systemd/system/docker.service.d/
+        sudo cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.conf
+        [Service]
+        MountFlags=shared
+        EOF
+        sudo systemctl restart docker.service
+        ```
+        ---
+        ⚠️⚠️⚠️ **重要提醒**：安装后请勿在CasaOS UI中编辑应用设置！否则将导致无法成功挂载！
+
+        📁 使用 `/mnt` 或 `/media` 目录挂载到宿主机。
+  port_map: '19798'
+  scheme: http
+  index: /

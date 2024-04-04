@@ -1,67 +1,66 @@
-name: lazylibrarian
+name: lazylibrarian-arm
 services:
-  lazylibrarian:
+  lazylibrarian-arm:
     environment:
       DOCKER_MODS: linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg
-      PGID: $PGID
-      PUID: $PUID
-      TZ: $TZ
-    image: linuxserver/lazylibrarian:version-0ca9b70c
+      PGID: "1000"
+      PUID: "1000"
+      TZ: Europe/London
+    image: linuxserver/lazylibrarian:arm32v7-version-f066b525
     deploy:
       resources:
         reservations:
           memory: 64M
     network_mode: bridge
     ports:
-      - target: 5299
-        published: "5299"
-        protocol: tcp
+    - target: 5299
+      published: "5299"
+      protocol: tcp
     restart: unless-stopped
     volumes:
-      - type: bind
-        source: /DATA/Downloads
-        target: /downloads
-      - type: bind
-        source: /DATA/Media/Books
-        target: /books
-      - type: bind
-        source: /DATA/AppData/lazylibrarian/config
-        target: /config
+    - type: bind
+      source: /DATA/Downloads
+      target: /downloads
+    - type: bind
+      source: /path/to/data
+      target: /books
+    - type: bind
+      source: /DATA/AppData/lazylibrarian/config
+      target: /config
     x-casaos:
       envs:
-        - container: PUID
-          description:
-            en_us: "Run LazyLibrarian as specified UID"
-        - container: PGID
-          description:
-            en_us: "Run LazyLibrarian as specified GID"
-        - container: TZ
-          description:
-            en_us: "TimeZone"
-        - container: DOCKER_MODS
-          description:
-            en_us: ""
+      - container: PUID
+        description:
+          en_us: ""
+      - container: PGID
+        description:
+          en_us: ""
+      - container: TZ
+        description:
+          en_us: ""
+      - container: DOCKER_MODS
+        description:
+          en_us: ""
       ports:
-        - container: "5299"
-          description:
-            en_us: ""
+      - container: "5299"
+        description:
+          en_us: ""
 
       volumes:
-        - container: /downloads
-          description:
-            en_us:  "LazyLibrarian downloads directory"
-        - container: /books
-          description:
-            en_us:  "LazyLibrarian Books directory"
-        - container: /config
-          description:
-            en_us:  "LazyLibrarian config directory"
-    container_name: lazylibrarian
+      - container: /downloads
+        description:
+          en_us: ""
+      - container: /books
+        description:
+          en_us: ""
+      - container: /config
+        description:
+          en_us: ""
+    container_name: lazylibrarian-arm
 x-casaos:
   architectures:
-    - amd64
-    - arm64
-  main: lazylibrarian
+  - arm
+  main: lazylibrarian-arm
   author: CasaOS Team
   category: Downloader
   description:
@@ -81,9 +80,9 @@ x-casaos:
   developer: Lazylibrarian Team
   icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Lazylibrarian/icon.png
   screenshot_link:
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Lazylibrarian/screenshot-1.png
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Lazylibrarian/screenshot-2.png
-    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Lazylibrarian/screenshot-3.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Lazylibrarian/screenshot-1.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Lazylibrarian/screenshot-2.png
+  - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Lazylibrarian/screenshot-3.png
   tagline:
     en_us: eBook Auto Downloader
     zh_cn: eBook自动下载器
