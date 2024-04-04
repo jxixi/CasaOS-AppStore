@@ -32,11 +32,6 @@ jobs:
           pushd /tmp
           zip -r main.zip build
             
-      - name: Checkout pages
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: pages
   
       - name: Upload New Release
         uses: softprops/action-gh-release@v1
