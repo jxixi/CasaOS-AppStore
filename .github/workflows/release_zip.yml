@@ -38,8 +38,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            main.zip
-          tag_name: new
+            /tmp/main.zip
+          tag_name: store
           draft: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
