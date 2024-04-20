@@ -5,7 +5,7 @@ services:
       PGID: $PGID
       PUID: $PUID
       TZ: $TZ
-    image: linuxserver/homeassistant:arm32v7-2023.4.6
+    image:  ghcr.io/home-assistant/armv7-homeassistant-base:2024.03.0
     deploy:
       resources:
         reservations:
